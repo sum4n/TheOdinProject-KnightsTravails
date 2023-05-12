@@ -1,3 +1,5 @@
+// need gameboard to track which place a knight has alredy
+// visited, a knight will not visit same place twice.
 let gameBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -23,7 +25,6 @@ class Knight {
     gameBoard[arr[0]][arr[1]] = 1;
     this.position = arr;
     this.parent = new Node(parent, arr);
-    // just one branch of next position
     this.next = [];
   }
 
@@ -33,9 +34,7 @@ class Knight {
       arr[1] - 1 >= 0 &&
       gameBoard[arr[0] - 2][arr[1] - 1] == 0
     ) {
-      // let node = new Knight([arr[0] - 2, arr[1] - 1], arr);
       this.next.push([this.parent, [arr[0] - 2, arr[1] - 1]]);
-      // this.next.push(node);
       gameBoard[arr[0] - 2][arr[1] - 1] = 1;
     }
     if (
@@ -44,8 +43,6 @@ class Knight {
       gameBoard[arr[0] - 2][arr[1] + 1] == 0
     ) {
       this.next.push([this.parent, [arr[0] - 2, arr[1] + 1]]);
-      // let node = new Knight([arr[0] - 2, arr[1] + 1], arr);
-      // this.next.push(node);
       gameBoard[arr[0] - 2][arr[1] + 1] = 1;
     }
     if (
@@ -53,8 +50,6 @@ class Knight {
       arr[1] - 2 >= 0 &&
       gameBoard[arr[0] - 1][arr[1] - 2] == 0
     ) {
-      // let node = new Knight([arr[0] - 1, arr[1] - 2], arr);
-      // this.next.push(node);
       this.next.push([this.parent, [arr[0] - 1, arr[1] - 2]]);
       gameBoard[arr[0] - 1][arr[1] - 2] = 1;
     }
@@ -63,8 +58,6 @@ class Knight {
       arr[1] + 2 <= 7 &&
       gameBoard[arr[0] - 1][arr[1] + 2] == 0
     ) {
-      // let node = new Knight([arr[0] - 1, arr[1] + 2], arr);
-      // this.next.push(node);
       this.next.push([this.parent, [arr[0] - 1, arr[1] + 2]]);
       gameBoard[arr[0] - 1][arr[1] + 2] = 1;
     }
@@ -73,8 +66,6 @@ class Knight {
       arr[1] - 2 >= 0 &&
       gameBoard[arr[0] + 1][arr[1] - 2] == 0
     ) {
-      // let node = new Knight([arr[0] + 1, arr[1] - 2], arr);
-      // this.next.push(node);
       this.next.push([this.parent, [arr[0] + 1, arr[1] - 2]]);
       gameBoard[arr[0] + 1][arr[1] - 2] = 1;
     }
@@ -83,8 +74,6 @@ class Knight {
       arr[1] + 2 <= 7 &&
       gameBoard[arr[0] + 1][arr[1] + 2] == 0
     ) {
-      // let node = new Knight([arr[0] + 1, arr[1] + 2], arr);
-      // this.next.push(node);
       this.next.push([this.parent, [arr[0] + 1, arr[1] + 2]]);
       gameBoard[arr[0] + 1][arr[1] + 2] = 1;
     }
@@ -93,8 +82,6 @@ class Knight {
       arr[1] - 1 >= 0 &&
       gameBoard[arr[0] + 2][arr[1] - 1] == 0
     ) {
-      // let node = new Knight([arr[0] + 2, arr[1] - 1], arr);
-      // this.next.push(node);
       this.next.push([this.parent, [arr[0] + 2, arr[1] - 1]]);
       gameBoard[arr[0] + 2][arr[1] - 1] = 1;
     }
@@ -103,20 +90,11 @@ class Knight {
       arr[1] + 1 <= 7 &&
       gameBoard[arr[0] + 2][arr[1] + 1] == 0
     ) {
-      // let node = new Knight([arr[0] + 2, arr[1] + 1], arr);
-      // this.next.push(node);
       this.next.push([this.parent, [arr[0] + 2, arr[1] + 1]]);
       gameBoard[arr[0] + 2][arr[1] + 1] = 1;
     }
   }
 }
-
-// let node = new Node(null, [3, 3]);
-// console.log(node);
-
-// let knight = new Knight(node.name);
-// knight.move();
-// let array = knight.next;
 
 // using queue to travel
 function travel(node, array, result) {
@@ -141,11 +119,6 @@ function travel(node, array, result) {
   }
 }
 
-// let result = travel(node, array);
-// console.log(result);
-
-// console.table(gameBoard);
-
 function knightMoves(inputArray, resultArray) {
   let node = new Node(null, inputArray);
 
@@ -155,7 +128,27 @@ function knightMoves(inputArray, resultArray) {
 
   let targetNode = travel(node, array, resultArray);
 
-  console.log(targetNode);
+  // console.log(targetNode);
+
+  let resultList = printName(targetNode);
+
+  console.log(
+    `=> You made it in ${resultList.length - 1} moves! Here's your path:`
+  );
+
+  for (let i = resultList.length - 1; i >= 0; i--) {
+    console.log(resultList[i]);
+  }
 }
 
-knightMoves([3, 3], [4, 3]);
+function printName(node, list = []) {
+  list.push(node.name);
+
+  if (node.parent == null) return;
+  printName(node.parent, list);
+
+  return list;
+}
+
+knightMoves([3, 3], [0, 1]);
+// knightMoves([3, 3], [0, 1]);
