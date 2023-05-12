@@ -1,5 +1,6 @@
 // need gameboard to track which place a knight has alredy
 // visited, a knight will not visit same place twice.
+// the visited 0 turns into 1.
 let gameBoard = [
   [0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0],
@@ -132,6 +133,18 @@ function knightMoves(inputArray, resultArray) {
 
   let resultList = printName(targetNode);
 
+  // reset gameBoard
+  gameBoard = [
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+  ];
+
   console.log(
     `=> You made it in ${resultList.length - 1} moves! Here's your path:`
   );
@@ -151,4 +164,4 @@ function printName(node, list = []) {
 }
 
 knightMoves([3, 3], [0, 1]);
-// knightMoves([3, 3], [0, 1]);
+knightMoves([3, 3], [5, 1]);
