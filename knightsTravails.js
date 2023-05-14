@@ -1,3 +1,20 @@
+// need gameboard to track which place a knight has alredy
+// visited, a knight will not visit same place twice.
+// the visited 0 turns into 1. After each function call, the gabeBoard
+// will be reset by the knightMoves() function.
+let gameBoard = [
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
+];
+
+// console.log(gameBoard[1][2]);
+
 // Each Node will be a Knight with parent attribute which tracks from where it
 // came and with name attribute.
 
@@ -40,7 +57,6 @@ class Knight {
   }
 
   move(arr = this.position) {
-    // console.log(gameBoard);
     if (
       arr[0] - 2 >= 0 &&
       arr[1] - 1 >= 0 &&
@@ -133,7 +149,6 @@ function travel(node, array, result) {
     knight1.move();
     // console.log(knight1.next);
     // console.log();
-    // console.table(gameBoard)
 
     array.push(...knight1.next);
 
@@ -149,10 +164,7 @@ function travel(node, array, result) {
 function knightMoves(inputArray, resultArray) {
   let node = new Node(null, inputArray);
 
-  // need gameboard to track which place a knight has alredy
-  // visited, a knight will not visit same place twice.
-  // the visited 0 turns into 1. After each function call, the gabeBoard
-  // will be reset after the knightMoves() function.
+  // reset gameBoard before creating Knight
   gameBoard = [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
