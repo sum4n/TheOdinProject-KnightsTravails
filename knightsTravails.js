@@ -137,6 +137,14 @@ class Knight {
 // becomes first item until the array is empty or we get the TARGET NODE.
 
 function travel(node, array, result) {
+  // need this logic if we are searching for [7,7]
+  // It becomes very last array and causes not found bug if we dont add this logic.
+  if (array.length == 1) {
+    let node = new Node(array[0][0], array[0][1]);
+    // console.log(node);
+    return node;
+  }
+
   if (array.length != 0) {
     if (node.name[0] == result[0] && node.name[1] == result[1]) {
       // console.log(node);
@@ -162,6 +170,10 @@ function travel(node, array, result) {
 // send them to travel() function to receive the result.
 // Here We reset the gameBoard.
 function knightMoves(inputArray, resultArray) {
+  if (inputArray[0] == resultArray[0] && inputArray[1] == resultArray[1]) {
+    console.log(`=> [${inputArray}] and [${resultArray}] is same!`);
+    return;
+  }
   let node = new Node(null, inputArray);
 
   // reset gameBoard before creating Knight
@@ -207,3 +219,4 @@ function printName(node, list = []) {
 
 knightMoves([3, 3], [0, 1]);
 knightMoves([3, 3], [5, 1]);
+knightMoves([7, 7], [7, 7]);
