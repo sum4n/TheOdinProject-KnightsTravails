@@ -1,20 +1,3 @@
-// need gameboard to track which place a knight has alredy
-// visited, a knight will not visit same place twice.
-// the visited 0 turns into 1. After each function call, the gabeBoard
-// will be reset by the knightMoves() function.
-let gameBoard = [
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0],
-];
-
-// console.log(gameBoard[1][2]);
-
 // Each Node will be a Knight with parent attribute which tracks from where it
 // came and with name attribute.
 
@@ -57,6 +40,7 @@ class Knight {
   }
 
   move(arr = this.position) {
+    // console.log(gameBoard);
     if (
       arr[0] - 2 >= 0 &&
       arr[1] - 1 >= 0 &&
@@ -149,6 +133,7 @@ function travel(node, array, result) {
     knight1.move();
     // console.log(knight1.next);
     // console.log();
+    // console.table(gameBoard)
 
     array.push(...knight1.next);
 
@@ -164,17 +149,10 @@ function travel(node, array, result) {
 function knightMoves(inputArray, resultArray) {
   let node = new Node(null, inputArray);
 
-  let knight = new Knight(node.name);
-  knight.move();
-  let array = knight.next;
-
-  let targetNode = travel(node, array, resultArray);
-
-  // console.log(targetNode);
-
-  let resultList = printName(targetNode);
-
-  // reset gameBoard
+  // need gameboard to track which place a knight has alredy
+  // visited, a knight will not visit same place twice.
+  // the visited 0 turns into 1. After each function call, the gabeBoard
+  // will be reset after the knightMoves() function.
   gameBoard = [
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -185,6 +163,16 @@ function knightMoves(inputArray, resultArray) {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ];
+
+  let knight = new Knight(node.name);
+  knight.move();
+  let array = knight.next;
+
+  let targetNode = travel(node, array, resultArray);
+
+  // console.log(targetNode);
+
+  let resultList = printName(targetNode);
 
   console.log(
     `=> You made it in ${resultList.length - 1} moves! Here's your path:`
