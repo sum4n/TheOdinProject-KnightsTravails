@@ -218,5 +218,5 @@ function printName(node, list = []) {
 }
 
 knightMoves([3, 3], [0, 1]);
-knightMoves([3, 3], [5, 1]);
+knightMoves([2, 2], [7, 7]);
 knightMoves([7, 7], [7, 7]);
